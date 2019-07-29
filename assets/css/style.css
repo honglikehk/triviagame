@@ -1,0 +1,36 @@
+body {
+  background-image: url("../images/avocado.png");
+}
+
+.container {
+  background-color: #fffdd0;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 15%;
+  padding: 2%;
+  margin-bottom: 10%;
+  min-height: calc(100vh - 70px);
+}
+
+.container h1 {
+  font-family: "Lobster", cursive;
+}
+
+.container h1,
+footer {
+  text-align: center;
+}
+
+.btn {
+  margin: 10%;
+}
+
+footer p {
+  font-size: 0.8rem;
+}
+
+#rcorners {
+  border-radius: 25px;
+  border: 6px solid green;
+  margin-top: 10%;
+}
