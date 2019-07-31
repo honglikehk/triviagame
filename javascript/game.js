@@ -61,6 +61,7 @@ $(document).ready(function() {
     let number = 25;
 
     let intervalId;
+
     function run() {
       intervalId = setInterval(decrement, 1000);
     }
@@ -119,9 +120,8 @@ $(document).ready(function() {
       );
 
       if (number === 0) {
-        startGame();
         stop();
-        run();
+        startGame();
         ++avocadoIndex;
 
         alert("Time Up!");
