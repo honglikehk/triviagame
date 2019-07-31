@@ -84,12 +84,12 @@ $(document).ready(function() {
       <button class=${"answer"} id=${"answer3"}>${answerButton3}</button><br>
       <button class=${"answer"} id=${"answer4"}>${answerButton4}</button>
       </ul>`);
-      // conditionals
 
       $(".answer").on(
         "click",
         function(e) {
           let chosenAnswer = e.target.id;
+
           if (chosenAnswer == "answer1") {
             if (answerButton1 == avocadoSlides[avocadoIndex].answer) {
               alert("yay!");
@@ -98,24 +98,33 @@ $(document).ready(function() {
             }
           } else if (chosenAnswer == "answer2") {
             if (answerButton2 == avocadoSlides[avocadoIndex].answer) {
-              alert("yay!");
+              alert("yyay!!");
             } else {
               alert("boo!!");
             }
           } else if (chosenAnswer == "answer3") {
             if (answerButton3 == avocadoSlides[avocadoIndex].answer) {
-              alert("yay!");
+              alert("yyay!!");
             } else {
               alert("boo!!");
             }
           } else if (chosenAnswer == "answer4") {
             if (answerButton4 == avocadoSlides[avocadoIndex].answer) {
-              alert("yay!");
+              $(".dynamicGame").html(
+                `<h1>${"Yay!! Correct!! Good job!!"}</h1><br> <img src=${"avocadoSlides.rightAnswer"}/>`
+              );
+              number = 15;
+              stop();
+              startGame();
+              ++avocadoIndex;
             } else {
               alert("boo!!");
             }
           }
         }
+
+        // $(".dynamicGame").html(`<h1>${"Yay!! Correct!! Good job!!"}</h1>
+        // <img src=${rightAnswer}/>`);
         // how do i compare the clicked answer with the answer
       );
 
@@ -123,8 +132,6 @@ $(document).ready(function() {
         stop();
         startGame();
         ++avocadoIndex;
-
-        alert("Time Up!");
       }
     }
     function stop() {
