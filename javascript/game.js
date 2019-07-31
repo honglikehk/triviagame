@@ -54,7 +54,6 @@ $(document).ready(function() {
   let correctAnswers = 0;
   let wrongAnswers = 0;
   let avocadoIndex = 0;
-  let startButton; //true or false
 
   // create a start game function
   function startGame() {
@@ -69,18 +68,61 @@ $(document).ready(function() {
     function decrement() {
       number--;
 
+      let answerButton1 = avocadoSlides[avocadoIndex].answerBank[0];
+      let answerButton2 = avocadoSlides[avocadoIndex].answerBank[1];
+      let answerButton3 = avocadoSlides[avocadoIndex].answerBank[2];
+      let answerButton4 = avocadoSlides[avocadoIndex].answerBank[3];
+
       // while the time is still on, the slide is still active
 
       $(".dynamicGame").html(`<h2>${"Time left: "}${number} </h2>
       <h1>${avocadoSlides[avocadoIndex].question}</h1>
-      <ul class=${"selection"}><button>${avocadoSlides[avocadoIndex].answerBank[0]}</button><br>
-      <button>${avocadoSlides[avocadoIndex].answerBank[1]}</button><br>
-      <button>${avocadoSlides[avocadoIndex].answerBank[2]}</button><br>
-      <button>${avocadoSlides[avocadoIndex].answerBank[3]}</button>
+      <ul class=${"selection"}>
+      <button class=${"answer"} id=${"answer1"}>${answerButton1}</button><br>
+      <button class=${"answer"} id=${"answer2"}>${answerButton2}</button><br>
+      <button class=${"answer"} id=${"answer3"}>${answerButton3}</button><br>
+      <button class=${"answer"} id=${"answer4"}>${answerButton4}</button>
       </ul>`);
+      // conditionals
+
+      $(".answer").on(
+        "click",
+        function(e) {
+          let chosenAnswer = e.target.id;
+          if (chosenAnswer == "answer1") {
+            if (answerButton1 == avocadoSlides[avocadoIndex].answer) {
+              alert("yay!");
+            } else {
+              alert("boo!!");
+            }
+          } else if (chosenAnswer == "answer2") {
+            if (answerButton2 == avocadoSlides[avocadoIndex].answer) {
+              alert("yay!");
+            } else {
+              alert("boo!!");
+            }
+          } else if (chosenAnswer == "answer3") {
+            if (answerButton3 == avocadoSlides[avocadoIndex].answer) {
+              alert("yay!");
+            } else {
+              alert("boo!!");
+            }
+          } else if (chosenAnswer == "answer4") {
+            if (answerButton4 == avocadoSlides[avocadoIndex].answer) {
+              alert("yay!");
+            } else {
+              alert("boo!!");
+            }
+          }
+        }
+        // how do i compare the clicked answer with the answer
+      );
 
       if (number === 0) {
+        startGame();
         stop();
+        run();
+        ++avocadoIndex;
 
         alert("Time Up!");
       }
@@ -88,40 +130,9 @@ $(document).ready(function() {
     function stop() {
       clearInterval(intervalId);
     }
+
     run();
-
-    // create question on slide
-
-    // let mainQuestion = $("<h1>");
-    // mainQuestion.attr("data-letter", avocadoIndex);
-    // mainQuestion.text(avocadoSlides[avocadoIndex].question);
-    // $(".dynamicGame").append(mainQuestion);
   }
-
-  // startGame();
-
-  // avocadoSlides.forEach(function(obj) {
-  //   console.log(obj);
-  // });
-
-  /*
-  // 1. Create a for-loop to iterate through the letters array.
-  letters.forEach(function(letter) {
-    // Inside the loop...
-
-    // 2. Create a variable named "letterBtn" equal to $("<button>");
-    let letterBtn = $("<button>");
-    // 3. Then give each "letterBtn" the following classes: "letter-button" "letter" "letter-button-color".
-    letterBtn.addClass("letter-button letter letter-button-color");
-    // 4. Then give each "letterBtn" an attribute called "data-letter", with a value eqaual to "letters[i]"
-    letterBtn.attr("data-letter", letter);
-    // 5. Then give each "letterBtn" a text equal to "letters[i]".
-    letterBtn.text(letter);
-    // 6. Finally, append each "letterBtn" to the "#buttons" div (provided).
-    $("#buttons").append(letterBtn);
-  });
-
-  */
 
   // when the submit button is clicked then the game is started
   $(".btn").on("click", function() {
