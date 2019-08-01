@@ -76,14 +76,28 @@ $(document).ready(function() {
 
       // while the time is still on, the slide is still active
 
-      $(".dynamicGame").html(`<h2>${"Time left: "}${number} </h2>
+      $(".dynamicGame").html(`<h2>Time left: ${number} </h2>
       <h1>${avocadoSlides[avocadoIndex].question}</h1>
-      <ul class=${"selection"}>
-      <button class=${"answer"} id=${"answer1"}>${answerButton1}</button><br>
-      <button class=${"answer"} id=${"answer2"}>${answerButton2}</button><br>
-      <button class=${"answer"} id=${"answer3"}>${answerButton3}</button><br>
-      <button class=${"answer"} id=${"answer4"}>${answerButton4}</button>
+      <ul class="selection">
+      <button class="answer" id="answer1">${answerButton1}</button><br>
+      <button class="answer" id="answer2">${answerButton2}</button><br>
+      <button class="answer" id="answer3">${answerButton3}</button><br>
+      <button class="answer" id="answer4">${answerButton4}</button>
       </ul>`);
+
+      // this is the function for when the answer is correct
+
+      function rightButton() {
+        $(".dynamicGame").html(
+          `<h1>Yay!! Correct!! Good job!!</h1><br> <img src="${
+            avocadoSlides[0].rightAnswer
+          }"/>`
+        );
+        number = 15;
+        stop();
+        startGame();
+        avocadoIndex++;
+      }
 
       $(".answer").on(
         "click",
@@ -110,13 +124,7 @@ $(document).ready(function() {
             }
           } else if (chosenAnswer == "answer4") {
             if (answerButton4 == avocadoSlides[avocadoIndex].answer) {
-              $(".dynamicGame").html(
-                `<h1>${"Yay!! Correct!! Good job!!"}</h1><br> <img src=${"avocadoSlides.rightAnswer"}/>`
-              );
-              number = 15;
-              stop();
-              startGame();
-              ++avocadoIndex;
+              rightButton();
             } else {
               alert("boo!!");
             }
@@ -131,7 +139,7 @@ $(document).ready(function() {
       if (number === 0) {
         stop();
         startGame();
-        ++avocadoIndex;
+        avocadoIndex++;
       }
     }
     function stop() {
