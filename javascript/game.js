@@ -1,5 +1,7 @@
 // the function does not run until the HTML is done loading
 $(document).ready(function() {
+  let rightGif = "https://media.giphy.com/media/fs68M1NGzYwv0aQmhO/giphy.gif";
+  let wrongGif = "https://media.giphy.com/media/8BNNGw8WcMivS/giphy.gif";
   // create an array object of questions, answers
   const avocadoSlides = [
     {
@@ -10,16 +12,12 @@ $(document).ready(function() {
         "2 pounds",
         "3.5 pounds",
         "5 pounds and 3.6 ounces"
-      ],
-      rightAnswer: "https://media.giphy.com/media/fs68M1NGzYwv0aQmhO/giphy.gif",
-      wrongAnswer: "https://media.giphy.com/media/8BNNGw8WcMivS/giphy.gif"
+      ]
     },
     {
       question: "What is an Avocado,exactly?",
       answer: "Fruit",
-      answerBank: ["Fruit", "Vegetable", "Legume", "Meat"],
-      rightAnswer: "https://media.giphy.com/media/eLYM4VsSRtqCuJuiD4/giphy.gif",
-      wrongAnswer: "https://media.giphy.com/media/VILJHh5AodVIs/giphy.gif"
+      answerBank: ["Fruit", "Vegetable", "Legume", "Meat"]
     },
     {
       question:
@@ -30,23 +28,39 @@ $(document).ready(function() {
         "Alligator Pear",
         "Avonana",
         "No name was coined"
-      ],
-      rightAnswer: "https://media.giphy.com/media/xT9IgiIVWWt2S5fXNu/giphy.gif",
-      wrongAnswer: "https://media.giphy.com/media/3oz8xDzuVDbKoU4shi/giphy.gif"
+      ]
     },
     {
       question: "Which animals are avocados toxic too?",
       answer: "Dogs & Cats",
-      answerBank: ["Dogs", "Cats", "Dogs & Cats", "Birds"],
-      rightAnswer: "https://media.giphy.com/media/d1FL4zXfIQZMWFQQ/giphy.gif",
-      wrongAnswer: "https://media.giphy.com/media/Wte08TYWDjzKU/giphy.gif"
+      answerBank: ["Dogs", "Cats", "Dogs & Cats", "Birds"]
     },
     {
       question: "Avocados are a great source of?",
       answer: "All of the answers",
-      answerBank: ["Antioxidants", "Potassium", "Fibre", "All of the answers"],
-      rightAnswer: "https://media.giphy.com/media/OgfejiBYdTHXO/giphy.gif",
-      wrongAnswer: "https://media.giphy.com/media/jR3DmiapGtmY8/giphy.gif"
+      answerBank: ["Antioxidants", "Potassium", "Fibre", "All of the answers"]
+    },
+    {
+      rightAnswer: function() {
+        // alert("yay!");
+        $(".dynamicGame").html(
+          `<h1>Yay!! Correct!! Good job!!</h1><br> <img src="${rightGif}"/>`
+        );
+        stop();
+        startGame();
+        avocadoIndex++;
+      }
+    },
+    {
+      wrongAnswer: function() {
+        // alert("no!!");
+        $(".dynamicGame").html(
+          `<h1>Awww, you got the answer wrong :(</h1><br> <img src="${wrongGif}"/>`
+        );
+        stop();
+        startGame();
+        avocadoIndex++;
+      }
     }
   ];
 
@@ -54,6 +68,15 @@ $(document).ready(function() {
   let correctAnswers = 0;
   let wrongAnswers = 0;
   let avocadoIndex = 0;
+
+  //reset function
+  let reset = function() {
+    correctAnswers = 0;
+    wrongAnswers = 0;
+    avocadoIndex = 0;
+    stop();
+    startGame();
+  };
 
   // create a start game function
   function startGame() {
@@ -85,48 +108,48 @@ $(document).ready(function() {
       <button class="answer" id="answer4">${answerButton4}</button>
       </ul>`);
 
-      // this is the function for when the answer is correct
-
-      function rightButton() {
-        $(".dynamicGame").html(
-          `<h1>Yay!! Correct!! Good job!!</h1><br> <img src="${
-            avocadoSlides[0].rightAnswer
-          }"/>`
-        );
-        number = 15;
-        stop();
-        startGame();
-        avocadoIndex++;
-      }
-
       $(".answer").on(
         "click",
         function(e) {
           let chosenAnswer = e.target.id;
 
+          let userCorrect = function() {
+            return avocadoSlides[5].rightAnswer();
+          };
+          let userIncorrect = function() {
+            return avocadoSlides[6].wrongAnswer();
+          };
           if (chosenAnswer == "answer1") {
             if (answerButton1 == avocadoSlides[avocadoIndex].answer) {
-              alert("yay!");
+              userCorrect();
+              correctAnswers++;
             } else {
-              alert("boo!!");
+              userIncorrect();
+              wrongAnswers++;
             }
           } else if (chosenAnswer == "answer2") {
             if (answerButton2 == avocadoSlides[avocadoIndex].answer) {
-              alert("yyay!!");
+              userCorrect();
+              correctAnswers++;
             } else {
-              alert("boo!!");
+              userIncorrect();
+              wrongAnswers++;
             }
           } else if (chosenAnswer == "answer3") {
             if (answerButton3 == avocadoSlides[avocadoIndex].answer) {
-              alert("yyay!!");
+              userCorrect();
+              correctAnswers++;
             } else {
-              alert("boo!!");
+              userIncorrect();
+              wrongAnswers++;
             }
           } else if (chosenAnswer == "answer4") {
             if (answerButton4 == avocadoSlides[avocadoIndex].answer) {
-              rightButton();
+              userCorrect();
+              correctAnswers++;
             } else {
-              alert("boo!!");
+              userIncorrect();
+              wrongAnswers++;
             }
           }
         }
@@ -140,6 +163,17 @@ $(document).ready(function() {
         stop();
         startGame();
         avocadoIndex++;
+        wrongAnswers++;
+      }
+
+      if (avocadoIndex == 4) {
+        $(".dynamicGame").html(`<p>Wins:${correctAnswers}/5</p><br>
+        <p>Loses:${wrongAnswers}/5</p><br>
+        <button type="button" id="btn" class="btn btn-success">TRY AGAIN!</BUTTON>`);
+        // WHY WONT MY TRY AGAIN BUTTON WORK??!??!!?
+        $("#btn").on("click", function() {
+          reset();
+        });
       }
     }
     function stop() {
