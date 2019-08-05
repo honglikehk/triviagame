@@ -111,6 +111,7 @@ $(document).ready(function() {
       $(".answer").on(
         "click",
         function(e) {
+          event.preventDefault();
           let chosenAnswer = e.target.id;
 
           let userCorrect = function() {
